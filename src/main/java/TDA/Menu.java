@@ -26,7 +26,7 @@ public class Menu {
 
                     System.out.println("Ingrese la contraseña: ");
                     Scanner sp = new Scanner(System.in);
-                    String credencialContrasenia = sp.nextLine();
+                    String credencialContrasenia = sn.nextLine();
 
                     if (!p.login(credencialNombre,credencialContrasenia)){
                         System.out.println("Nombre o contrañsea incorrecto, ingrese datos correctos.");
@@ -36,7 +36,21 @@ public class Menu {
                     }
                     break;
                 case 2:
-                    System.out.println("ingresado 2");
+                    System.out.println("\t Registrando a un usuario\n");
+                    System.out.println("Ingrese el nombre del usuario a registrar:");
+                    Scanner scr = new Scanner(System.in);
+                    String nuevoUser = scr.nextLine();
+
+                    System.out.println("Ingrese la contraseña del usuario a registrar: ");
+                    Scanner scp = new Scanner(System.in);
+                    String nuevaPass = scp.nextLine();
+
+                    if (p.registrarUsuario(nuevoUser,nuevaPass)){
+                        p.login(nuevoUser,nuevaPass);
+                    }
+                    else{
+                        System.out.println("Usuario ya registrado en la plataforma...");
+                    }
                     break;
 
                 case 3:
@@ -86,6 +100,10 @@ public class Menu {
                     p.create(p.getUsuarioActivo(),titulo,contenido,ahora);
                     System.out.println("Documento creado exitosamente");
 
+                    break;
+                case 8:
+                    System.out.println("Cerrando sesion...");
+                    p.logout();
                     break;
                 case 9:
                     System.out.println("Saliendo del programa...");

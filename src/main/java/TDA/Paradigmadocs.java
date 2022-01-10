@@ -64,34 +64,7 @@ public class Paradigmadocs {
         newDoc.Documento(user.getUsername(),nombreDoc,contenidoDoc, this.cantidadDocumentos, fecha);
         this.documentos.add(newDoc);
 
-        //otra version de create donde lo agrego a una lista dentro del usuario
-        /*
-        for(int i=0; i< this.usuariosRegistrados.size(); i++){
-            if( this.usuariosRegistrados.get(i).getUsername().equals(user.getUsername())){
-                ArrayList<Documento> doc =this.usuariosRegistrados.get(i).getDocumentos();
-                doc.add(newDoc);
-                this.usuariosRegistrados.get(i).setDocumentosUser(doc);
-            }
-        }
-
-         */
-
-
     }
-    /*
-    public void create2(Usuario user, String nombreDoc, String contenidoDoc, Date fecha){
-        Documento newDoc = new Documento();
-        this.cantidadDocumentos=this.cantidadDocumentos+1;
-        ArrayList<Documento> agregarAListaDocs= new ArrayList<>();
-        newDoc.Documento(user,nombreDoc,contenidoDoc, this.cantidadDocumentos, fecha);
-        agregarAListaDocs.add(newDoc);
-
-        ArrayList<Documento> documentosUsuario = user.getDocumentos();
-        documentosUsuario.add(newDoc);
-        System.out.println(documentosUsuario);
-        user.setDocumentosUser(documentosUsuario);
-
-     */
 
     public boolean login (String nombre, String contrasenia) {
         for (int i = 0; i < this.usuariosRegistrados.size(); i++) {
@@ -101,6 +74,11 @@ public class Paradigmadocs {
             }
         }
         return false;
+    }
+
+    public void logout(){
+        this.usuarioActivo = null;
+        this.boolUsuario = false;
     }
 
 
