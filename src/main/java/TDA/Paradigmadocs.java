@@ -114,8 +114,7 @@ public class Paradigmadocs {
     }
 
     public void rollback(int idDocumento, int idVersion){
-
-        for (int i=0;i<this.documentos.size();i++)
+        for (int i=0;i<this.documentos.size();i++){
             for (int j = 0;j<this.documentos.get(i).getVersionesDoc().size();j++){
                 if (this.documentos.get(i).getiD()==idDocumento && this.documentos.get(i).getVersionesDoc().get(j).getiD()== idVersion){
 
@@ -133,7 +132,21 @@ public class Paradigmadocs {
 
                 }
             }
+        }
     }
+
+    public void revokeAccess(int idDocumento){
+        for (int i=0;i<this.usuariosRegistrados.size();i++){
+            for (int j=0;j<this.usuariosRegistrados.get(i).getAccesosUser().size();j++){
+                if (this.usuariosRegistrados.get(i).getAccesosUser().get(j).getiD()==idDocumento){
+                    Accesos accesoBorrar = this.usuariosRegistrados.get(i).getAccesosUser().get(j);
+
+                    this.usuariosRegistrados.get(i).getAccesosUser().remove(accesoBorrar);
+                }
+            }
+        }
+    }
+
     @Override
     public String toString() {
         return "Paradigmadocs{" +

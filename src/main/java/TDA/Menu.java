@@ -107,18 +107,18 @@ public class Menu {
                     boolean valor2 = true;
                     boolean valor3 = true;
                     String permiso = null;
-                    int idCompartido = 0;
+                    int idDocumento = 0;
                     System.out.println("\t Compartir un documento\n");
 
                     while (valor3){
-                        ArrayList<Documento> documentosUsuarios = p.getDocumentos();
+                        ArrayList<Documento> listaDocumentos = p.getDocumentos();
                         System.out.println("Recuerde que los ID de los documentos son unicos e incrementales partiendo desde el 1.\n");
                         System.out.println("ingrese el ID del documento que quiere compartir: ");
                         Scanner scid = new Scanner(System.in);
-                        idCompartido = scid.nextInt();
+                        idDocumento = scid.nextInt();
 
-                        for (int i=0;i<documentosUsuarios.size();i++){
-                            if (documentosUsuarios.get(i).getiD()==idCompartido && p.getUsuarioActivo().getUsername().equals(documentosUsuarios.get(i).getUsuario())){
+                        for (int i=0;i<listaDocumentos.size();i++){
+                            if (listaDocumentos.get(i).getiD()==idDocumento && p.getUsuarioActivo().getUsername().equals(listaDocumentos.get(i).getUsuario())){
                                 valor3 = false;
                             }
                         }
@@ -127,7 +127,7 @@ public class Menu {
                                     " ningun documento propio\n" +
                                     "escriba 0 y presione ENTER para salir de esta opcion\n");
                         }
-                        if (idCompartido == 0){
+                        if (idDocumento == 0){
                             break;
                         }
                     }
@@ -163,7 +163,7 @@ public class Menu {
                         ArrayList<Usuario> listaUsuarios = p.getUsuariosRegistrados();
                         for (int i =0;i < listaUsuarios.size();i++){
                             if (listaUsuarios.get(i).getUsername().equals(userCompartido)){
-                                p.share(userCompartido,idCompartido,permiso);
+                                p.share(userCompartido,idDocumento,permiso);
                                 banderaError = true;
                                 i= listaUsuarios.size();
                             }
@@ -186,7 +186,7 @@ public class Menu {
                     boolean verificacionGeneral = true;
                     ArrayList<Documento> listaDocumentos = p.getDocumentos();
                     ArrayList<Accesos> accesosUsuario = p.getUsuarioActivo().getAccesosUser();
-                    int idDocumento=0;
+                    idDocumento=0;
 
                     while (verificacionGeneral){
                         System.out.println("Recuerde que los ID de los documentos son unicos e incrementales partiendo desde el 1.\n");
@@ -231,8 +231,8 @@ public class Menu {
                     break;
                 case 4:
                     System.out.println("\tRestaurar version de un documento\n");
-                    ArrayList<Documento> listaDoc = p.getDocumentos();
-                    int idDoc = 0;
+                    listaDocumentos = p.getDocumentos();
+                    idDocumento = 0;
                     int idVersion =0;
                     boolean verificacionIdDocumento = true;
                     boolean verificarIdVersion = true;
@@ -241,9 +241,9 @@ public class Menu {
 
                         System.out.println("Ingrese el ID del documento: ");
                         Scanner scId = new Scanner(System.in);
-                        idDoc = scId.nextInt();
-                        for (int i=0;i<listaDoc.size();i++){
-                            if (listaDoc.get(i).getiD()==idDoc && p.getUsuarioActivo().getUsername().equals(listaDoc.get(i).getUsuario())){
+                        idDocumento = scId.nextInt();
+                        for (int i=0;i<listaDocumentos.size();i++){
+                            if (listaDocumentos.get(i).getiD()==idDocumento && p.getUsuarioActivo().getUsername().equals(listaDocumentos.get(i).getUsuario())){
                                 verificacionIdDocumento = false;
                             }
                         }
@@ -253,7 +253,7 @@ public class Menu {
                                     " ningun documento propio\n" +
                                     "escriba 0 y presione ENTER para salir de esta opcion\n");
                         }
-                        if (idDoc == 0){
+                        if (idDocumento == 0){
                             break;
                         }
                     }
@@ -263,9 +263,9 @@ public class Menu {
                         Scanner scv = new Scanner(System.in);
                         idVersion = scv.nextInt();
 
-                        for (int i=0;i<listaDoc.size();i++){
-                            for (int j=0;j<listaDoc.get(i).getVersionesDoc().size();j++){
-                                if (listaDoc.get(i).getVersionesDoc().get(j).getiD()== idVersion){
+                        for (int i=0;i<listaDocumentos.size();i++){
+                            for (int j=0;j<listaDocumentos.get(i).getVersionesDoc().size();j++){
+                                if (listaDocumentos.get(i).getVersionesDoc().get(j).getiD()== idVersion){
                                     verificarIdVersion = false;
                                 }
                             }
@@ -280,10 +280,40 @@ public class Menu {
                         }
                     }
 
-                    p.rollback(idDoc,idVersion);
+                    p.rollback(idDocumento,idVersion);
                     System.out.println("Version restaurada correctamente...");
                     break;
+                case 5:
+                    System.out.println("\tRevocar permisos a un documento\n");
+                    ArrayList<Usuario> listaUsuarios= p.getUsuariosRegistrados();
+                    listaDocumentos = p.getDocumentos();
+                    verificacionIdDocumento = true;
+                    idDocumento =0;
 
+                    while (verificacionIdDocumento){
+                        System.out.println("Ingrese el ID del documento:");
+                        Scanner scId = new Scanner(System.in);
+                        idDocumento = scId.nextInt();
+                        for (int i=0;i<listaDocumentos.size();i++){
+                            if (listaDocumentos.get(i).getiD()==idDocumento && p.getUsuarioActivo().getUsername().equals(listaDocumentos.get(i).getUsuario())){
+                                verificacionIdDocumento = false;
+                            }
+                        }
+
+                        if (verificacionIdDocumento){
+                            System.out.println("Ingrese un ID de documento que le pertenezca, en caso de no tener " +
+                                    " ningun documento propio\n" +
+                                    "escriba 0 y presione ENTER para salir de esta opcion\n");
+                        }
+
+                        if (idDocumento == 0){
+                            break;
+                        }
+                    }
+
+                    p.revokeAccess(idDocumento);
+                    System.out.println("Se ha o han revocado los accesos correctamente...");
+                    break;
                 case 8:
                     System.out.println("Cerrando sesion...");
                     p.logout();
