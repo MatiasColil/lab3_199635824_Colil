@@ -13,8 +13,8 @@ public class Usuario {
     public Usuario CrearUsuario(String newusername, String newpassword) {
         this.username = newusername;
         this.password = newpassword;
-        ArrayList<Accesos> accesos = new ArrayList<>();
-        this.accesosUser = accesos;
+        ArrayList<Accesos> accesosUsuario = new ArrayList<>();
+        this.accesosUser = accesosUsuario;
         return this;
     }
 
@@ -26,17 +26,20 @@ public class Usuario {
         return password;
     }
 
+    public ArrayList<Accesos> getAccesosUser() {
+        return accesosUser;
+    }
+
+    public void setAccesosUser(ArrayList<Accesos> accesosUser) {
+        this.accesosUser = accesosUser;
+    }
 
     @Override
     public String toString() {
         return "Usuario{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", accesosUser=" + accesosUser +
                 '}';
-    }
-
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }

@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.Date;
 public class Documento {
 
-    //private Usuario user;
     private String usuario;
     private String nombreDoc;
     private String contenidoDoc;
@@ -27,6 +26,21 @@ public class Documento {
         return this;
     }
 
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public int getiD() {
+        return iD;
+    }
+
+    public ArrayList<Versiones> getVersionesDoc() {
+        return versionesDoc;
+    }
+
+    public String getContenidoDoc() {
+        return contenidoDoc;
+    }
 
     @Override
     public String toString() {

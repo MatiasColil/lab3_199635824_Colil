@@ -35,7 +35,6 @@ public class Paradigmadocs {
         return boolUsuario;
     }
 
-
     public boolean estaUsuario (Usuario user){
         for(int i=0; i< this.usuariosRegistrados.size(); i++){
             if( this.usuariosRegistrados.get(i).getUsername().equals(user.getUsername())){
@@ -58,14 +57,6 @@ public class Paradigmadocs {
         }
     }
 
-    public void create(Usuario user, String nombreDoc, String contenidoDoc, Date fecha){
-        Documento newDoc = new Documento();
-        this.cantidadDocumentos=this.cantidadDocumentos+1;
-        newDoc.Documento(user.getUsername(),nombreDoc,contenidoDoc, this.cantidadDocumentos, fecha);
-        this.documentos.add(newDoc);
-
-    }
-
     public boolean login (String nombre, String contrasenia) {
         for (int i = 0; i < this.usuariosRegistrados.size(); i++) {
             if (this.usuariosRegistrados.get(i).getUsername().equals(nombre) && this.usuariosRegistrados.get(i).getPassword().equals(contrasenia)) {
@@ -81,6 +72,25 @@ public class Paradigmadocs {
         this.boolUsuario = false;
     }
 
+    public void create(Usuario user, String nombreDoc, String contenidoDoc, Date fecha){
+        Documento newDoc = new Documento();
+        this.cantidadDocumentos=this.cantidadDocumentos+1;
+        newDoc.Documento(user.getUsername(),nombreDoc,contenidoDoc, this.cantidadDocumentos, fecha);
+        this.documentos.add(newDoc);
+    }
+
+    public void share(String user, int iDdocumento, String permiso){
+        Accesos nuevoAcceso = new Accesos();
+        nuevoAcceso.Accesos(iDdocumento,permiso);
+
+        for (int i = 0; i< this.usuariosRegistrados.size();i++){
+            if (this.usuariosRegistrados.get(i).getUsername().equals(user)){
+                ArrayList<Accesos> temp = this.usuariosRegistrados.get(i).getAccesosUser();
+                temp.add(nuevoAcceso);
+                this.usuariosRegistrados.get(i).setAccesosUser(temp);
+            }
+        }
+    }
 
     @Override
     public String toString() {

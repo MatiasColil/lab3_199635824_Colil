@@ -1,5 +1,6 @@
 package TDA;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Date;
 
@@ -99,8 +100,86 @@ public class Menu {
 
                     p.create(p.getUsuarioActivo(),titulo,contenido,ahora);
                     System.out.println("Documento creado exitosamente");
-
                     break;
+
+                case 2:
+                    boolean valor = true;
+                    boolean valor2 = true;
+                    boolean valor3 = true;
+                    String permiso = null;
+                    int idCompartido = 0;
+                    System.out.println("\t Compartir un documento\n");
+
+                    while (valor3){
+                        ArrayList<Documento> documentosUsuarios = p.getDocumentos();
+                        System.out.println("ingrese el ID del documento que quiere compartir: ");
+                        Scanner scid = new Scanner(System.in);
+                        idCompartido = scid.nextInt();
+
+                        for (int i=0;i<documentosUsuarios.size();i++){
+                            if (documentosUsuarios.get(i).getiD()==idCompartido && p.getUsuarioActivo().getUsername().equals(documentosUsuarios.get(i).getUsuario())){
+                                valor3 = false;
+                            }
+                        }
+                        if (valor3){
+                            System.out.println("Ingrese un ID de documento que le pertenezca, en caso de no tener " +
+                                    " ningun documento propio\n" +
+                                    "escriba 0 y presione ENTER para salir de esta opcion\n");
+                        }
+                        if (idCompartido == 0){
+                            break;
+                        }
+                    }
+
+                    System.out.println("Existen 3 tipos de permisos:\n" +
+                            "write: permiso para poder editar el documento\n" +
+                            "read: permiso para poder leer el documento\n" +
+                            "comment: permiso para poder comentar el documento");
+
+                    while(valor2){
+                        System.out.println("Ingrese el tipo de permiso que quiera dar (write, read o comment): ");
+                        Scanner scp = new Scanner(System.in);
+                        permiso = scp.nextLine();
+                        if (permiso.equals("write") || permiso.equals("read") || permiso.equals("comment")){
+                            valor2=false;
+                        }
+                        else{
+                            System.out.println("Por favor ingrese un permiso valido...");
+                        }
+                    }
+
+                    System.out.println("Puede ingresar todos los usuarios a los cuales les quiere compartir el documento" +
+                            " pero tendra que hacerlo de uno a uno\n");
+
+                    while (valor){
+                        boolean banderaError = false;
+                        System.out.println("Si ya ingreso a todos los usuarios a los cuales le queria compartir el" +
+                                " documento, escriba 0 y presione ENTER\n");
+                        System.out.println("Ingrese el nombre del usuario al cual le quiere compartir el documento: ");
+                        Scanner scs = new Scanner(System.in);
+                        String userCompartido = scs.nextLine();
+
+                        ArrayList<Usuario> listaUsuarios = p.getUsuariosRegistrados();
+                        for (int i =0;i < listaUsuarios.size();i++){
+                            if (listaUsuarios.get(i).getUsername().equals(userCompartido)){
+                                p.share(userCompartido,idCompartido,permiso);
+                                banderaError = true;
+                                i= listaUsuarios.size();
+                            }
+                        }
+                        if (!banderaError){
+                            System.out.println("Por favor escriba el nombre de un usuario registrado");
+                        }
+
+                        if (userCompartido.equals("0")){
+                            valor = false;
+                        }
+
+                    }
+
+                    System.out.println("Permiso dado correctamente...");
+                    break;
+
                 case 8:
                     System.out.println("Cerrando sesion...");
                     p.logout();

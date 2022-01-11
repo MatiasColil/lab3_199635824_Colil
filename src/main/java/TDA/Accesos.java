@@ -4,9 +4,10 @@ public class Accesos {
     private int iD;
     private String permiso;
 
-    public Accesos(int iD, String permiso) {
+    public Accesos Accesos(int iD, String permiso) {
         this.iD = iD;
         this.permiso = permiso;
+        return this;
     }
 
     public int getiD() {
