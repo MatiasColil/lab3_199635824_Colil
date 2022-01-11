@@ -92,6 +92,26 @@ public class Paradigmadocs {
         }
     }
 
+    public void add(int iDdocumento, String contenidoAgregar){
+
+        for (int i=0;i<this.documentos.size();i++){
+            if (this.documentos.get(i).getiD()==iDdocumento){
+
+                Date fechaActual = new Date();
+                ArrayList<Versiones> versionesActuales=this.documentos.get(i).getVersionesDoc();
+                String contenidoActual=this.documentos.get(i).getContenidoDoc();
+                String contenidoActulizado=contenidoActual+" "+contenidoAgregar;
+                int cantidadVersiones = versionesActuales.size() + 1;
+                Versiones nuevaVersion = new Versiones();
+                nuevaVersion.Versiones(contenidoActulizado,cantidadVersiones, fechaActual);
+                versionesActuales.add(nuevaVersion);
+
+                this.documentos.get(i).setContenidoDoc(contenidoActulizado);
+                this.documentos.get(i).setVersionesDoc(versionesActuales);
+
+            }
+        }
+    }
     @Override
     public String toString() {
         return "Paradigmadocs{" +

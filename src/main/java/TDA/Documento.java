@@ -1,6 +1,7 @@
 package TDA;
 import java.util.ArrayList;
 import java.util.Date;
+
 public class Documento {
 
     private String usuario;
@@ -12,6 +13,7 @@ public class Documento {
 
 
     public Documento Documento(String nombreUser, String nombreDoc, String contenidoDoc, int iD, Date fechaCreacion) {
+        Date fecha = new Date();
         this.usuario = nombreUser;
         this.nombreDoc = nombreDoc;
         this.contenidoDoc = contenidoDoc;
@@ -19,7 +21,7 @@ public class Documento {
         this.fechaCreacion = fechaCreacion;
         ArrayList<Versiones> primeraVersion = new ArrayList<>();
         Versiones primera = new Versiones();
-        primera.Versiones(contenidoDoc,1);
+        primera.Versiones(contenidoDoc,1,fecha);
         primeraVersion.add(primera);
         this.versionesDoc = primeraVersion;
 
@@ -42,6 +44,13 @@ public class Documento {
         return contenidoDoc;
     }
 
+    public void setContenidoDoc(String contenidoDoc) {
+        this.contenidoDoc = contenidoDoc;
+    }
+
+    public void setVersionesDoc(ArrayList<Versiones> versionesDoc) {
+        this.versionesDoc = versionesDoc;
+    }
     @Override
     public String toString() {
         return "Documento{" +

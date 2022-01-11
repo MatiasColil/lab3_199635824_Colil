@@ -112,6 +112,7 @@ public class Menu {
 
                     while (valor3){
                         ArrayList<Documento> documentosUsuarios = p.getDocumentos();
+                        System.out.println("Recuerde que los ID de los documentos son unicos e incrementales partiendo desde el 1.\n");
                         System.out.println("ingrese el ID del documento que quiere compartir: ");
                         Scanner scid = new Scanner(System.in);
                         idCompartido = scid.nextInt();
@@ -172,6 +173,7 @@ public class Menu {
                         }
 
                         if (userCompartido.equals("0")){
+                            System.out.println("Saliendo de la opcion compartir documento...");
                             valor = false;
                         }
 
@@ -179,7 +181,54 @@ public class Menu {
 
                     System.out.println("Permiso dado correctamente...");
                     break;
+                case 3:
+                    System.out.println("\t Agregar contenido a un documento\n");
+                    boolean verificacionGeneral = true;
+                    ArrayList<Documento> listaDocumentos = p.getDocumentos();
+                    ArrayList<Accesos> accesosUsuario = p.getUsuarioActivo().getAccesosUser();
+                    int idDocumento=0;
 
+                    while (verificacionGeneral){
+                        System.out.println("Recuerde que los ID de los documentos son unicos e incrementales partiendo desde el 1.\n");
+                        System.out.println("Ingrese el ID del documento que desea modificar:");
+                        Scanner sciD = new Scanner(System.in);
+                        idDocumento = sciD.nextInt();
+
+                        for (int i =0; i<listaDocumentos.size();i++){
+                            if (listaDocumentos.get(i).getUsuario().equals(p.getUsuarioActivo().getUsername()) && listaDocumentos.get(i).getiD()==idDocumento){
+                                System.out.println("Ingrese el contenido que desea agregar al documento:");
+                                Scanner scc = new Scanner(System.in);
+                                String contenidoAgregar = scc.nextLine();
+                                p.add(idDocumento,contenidoAgregar);
+                                verificacionGeneral = false;
+                                i= listaDocumentos.size();
+                            }
+                        }
+
+                        for (int i= 0;i<accesosUsuario.size();i++){
+                            if (accesosUsuario.get(i).getiD()==idDocumento && accesosUsuario.get(i).getPermiso().equals("write")){
+                                System.out.println("Ingrese el contenido que desea agregar al documento:");
+                                Scanner scc = new Scanner(System.in);
+                                String contenidoAgregar = scc.nextLine();
+                                p.add(idDocumento,contenidoAgregar);
+                                verificacionGeneral = false;
+                                i= listaDocumentos.size();
+                            }
+                        }
+
+                        if (verificacionGeneral){
+                            System.out.println("Ingrese un ID de documento que le pertenezca o que le hayan compartido con permiso de edicion (write), en caso de no tener " +
+                                    " ningun documento propio o compartido \n" +
+                                    "escriba 0 y presione ENTER para salir de esta opcion\n");
+                        }
+                        if (idDocumento == 0){
+                            System.out.println("Saliendo de la opcion agregar contenido...");
+                            break;
+                        }
+                    }
+
+                    System.out.println("Contenido agregado correctamente...");
+                    break;
                 case 8:
                     System.out.println("Cerrando sesion...");
                     p.logout();
