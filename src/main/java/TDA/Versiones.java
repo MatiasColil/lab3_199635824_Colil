@@ -18,6 +18,10 @@ public class Versiones {
         return contenido;
     }
 
+    public int getiD() {
+        return iD;
+    }
+
     @Override
     public String toString() {
         return "Versiones{" +

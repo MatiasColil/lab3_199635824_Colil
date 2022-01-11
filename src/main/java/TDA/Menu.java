@@ -229,6 +229,61 @@ public class Menu {
 
                     System.out.println("Contenido agregado correctamente...");
                     break;
+                case 4:
+                    System.out.println("\tRestaurar version de un documento\n");
+                    ArrayList<Documento> listaDoc = p.getDocumentos();
+                    int idDoc = 0;
+                    int idVersion =0;
+                    boolean verificacionIdDocumento = true;
+                    boolean verificarIdVersion = true;
+
+                    while(verificacionIdDocumento){
+
+                        System.out.println("Ingrese el ID del documento: ");
+                        Scanner scId = new Scanner(System.in);
+                        idDoc = scId.nextInt();
+                        for (int i=0;i<listaDoc.size();i++){
+                            if (listaDoc.get(i).getiD()==idDoc && p.getUsuarioActivo().getUsername().equals(listaDoc.get(i).getUsuario())){
+                                verificacionIdDocumento = false;
+                            }
+                        }
+
+                        if (verificacionIdDocumento){
+                            System.out.println("Ingrese un ID de documento que le pertenezca, en caso de no tener " +
+                                    " ningun documento propio\n" +
+                                    "escriba 0 y presione ENTER para salir de esta opcion\n");
+                        }
+                        if (idDoc == 0){
+                            break;
+                        }
+                    }
+
+                    while(verificarIdVersion){
+                        System.out.println("Ingrese el ID de la version que quiere restaurar:");
+                        Scanner scv = new Scanner(System.in);
+                        idVersion = scv.nextInt();
+
+                        for (int i=0;i<listaDoc.size();i++){
+                            for (int j=0;j<listaDoc.get(i).getVersionesDoc().size();j++){
+                                if (listaDoc.get(i).getVersionesDoc().get(j).getiD()== idVersion){
+                                    verificarIdVersion = false;
+                                }
+                            }
+                        }
+                        if (verificarIdVersion){
+                            System.out.println("Ingrese un ID de version valido, en caso que la version " +
+                                    "no exista y quiera salir de esta opcion, escriba 0 y presione ENTER para salir");
+                        }
+
+                        if (idVersion == 0){
+                            break;
+                        }
+                    }
+
+                    p.rollback(idDoc,idVersion);
+                    System.out.println("Version restaurada correctamente...");
+                    break;
+
                 case 8:
                     System.out.println("Cerrando sesion...");
                     p.logout();

@@ -112,6 +112,28 @@ public class Paradigmadocs {
             }
         }
     }
+
+    public void rollback(int idDocumento, int idVersion){
+
+        for (int i=0;i<this.documentos.size();i++)
+            for (int j = 0;j<this.documentos.get(i).getVersionesDoc().size();j++){
+                if (this.documentos.get(i).getiD()==idDocumento && this.documentos.get(i).getVersionesDoc().get(j).getiD()== idVersion){
+
+                    Date fechaRestauracion = new Date();
+                    ArrayList<Versiones> versionesActuales = this.documentos.get(i).getVersionesDoc();
+                    String contenidoVersionRestaurar = this.documentos.get(i).getVersionesDoc().get(j).getContenido();
+
+                    int cantidadVersiones = versionesActuales.size()+1;
+                    Versiones versionRestaurada = new Versiones();
+                    versionRestaurada.Versiones(contenidoVersionRestaurar,cantidadVersiones,fechaRestauracion);
+                    versionesActuales.add(versionRestaurada);
+
+                    this.documentos.get(i).setContenidoDoc(contenidoVersionRestaurar);
+                    this.documentos.get(i).setVersionesDoc(versionesActuales);
+
+                }
+            }
+    }
     @Override
     public String toString() {
         return "Paradigmadocs{" +
