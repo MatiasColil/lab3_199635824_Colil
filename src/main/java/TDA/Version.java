@@ -2,12 +2,12 @@ package TDA;
 
 import java.util.Date;
 
-public class Versiones {
+public class Version {
     private String contenido;
     private int iD;
     private Date fecha;
 
-    public Versiones Versiones(String contenido, int iD, Date fechaModificacion) {
+    public Version Version(String contenido, int iD, Date fechaModificacion) {
         this.contenido = contenido;
         this.iD = iD;
         this.fecha = fechaModificacion;

@@ -314,6 +314,30 @@ public class Menu {
                     p.revokeAccess(idDocumento);
                     System.out.println("Se ha o han revocado los accesos correctamente...");
                     break;
+                case 6:
+                    System.out.println("\tBuscar en los documentos\n");
+                    System.out.println("Ingrese la palabra o frase que desea buscar:");
+                    listaDocumentos = p.getDocumentos();
+                    accesosUsuario = p.getUsuarioActivo().getAccesosUser();
+                    Scanner scf = new Scanner(System.in);
+                    String frase = scf.nextLine();
+
+
+                    for (int i=0;i<listaDocumentos.size();i++){
+                        if (p.getUsuarioActivo().getUsername().equals(listaDocumentos.get(i).getUsuario())){
+                            p.search(listaDocumentos.get(i).getVersionesDoc(),frase,listaDocumentos.get(i).getNombreDoc(),listaDocumentos.get(i).getiD());
+                        }
+                    }
+
+                    for (int i=0;i<accesosUsuario.size();i++){
+                        for (int j=0;j<listaDocumentos.size();j++){
+                            if (accesosUsuario.get(i).getiD()==listaDocumentos.get(j).getiD()){
+                                p.search(listaDocumentos.get(j).getVersionesDoc(),frase,listaDocumentos.get(j).getNombreDoc(),listaDocumentos.get(j).getiD());
+                            }
+                        }
+                    }
+
+                    break;
                 case 8:
                     System.out.println("Cerrando sesion...");
                     p.logout();

@@ -98,12 +98,12 @@ public class Paradigmadocs {
             if (this.documentos.get(i).getiD()==iDdocumento){
 
                 Date fechaActual = new Date();
-                ArrayList<Versiones> versionesActuales=this.documentos.get(i).getVersionesDoc();
+                ArrayList<Version> versionesActuales=this.documentos.get(i).getVersionesDoc();
                 String contenidoActual=this.documentos.get(i).getContenidoDoc();
                 String contenidoActulizado=contenidoActual+" "+contenidoAgregar;
                 int cantidadVersiones = versionesActuales.size() + 1;
-                Versiones nuevaVersion = new Versiones();
-                nuevaVersion.Versiones(contenidoActulizado,cantidadVersiones, fechaActual);
+                Version nuevaVersion = new Version();
+                nuevaVersion.Version(contenidoActulizado,cantidadVersiones, fechaActual);
                 versionesActuales.add(nuevaVersion);
 
                 this.documentos.get(i).setContenidoDoc(contenidoActulizado);
@@ -119,12 +119,12 @@ public class Paradigmadocs {
                 if (this.documentos.get(i).getiD()==idDocumento && this.documentos.get(i).getVersionesDoc().get(j).getiD()== idVersion){
 
                     Date fechaRestauracion = new Date();
-                    ArrayList<Versiones> versionesActuales = this.documentos.get(i).getVersionesDoc();
+                    ArrayList<Version> versionesActuales = this.documentos.get(i).getVersionesDoc();
                     String contenidoVersionRestaurar = this.documentos.get(i).getVersionesDoc().get(j).getContenido();
 
                     int cantidadVersiones = versionesActuales.size()+1;
-                    Versiones versionRestaurada = new Versiones();
-                    versionRestaurada.Versiones(contenidoVersionRestaurar,cantidadVersiones,fechaRestauracion);
+                    Version versionRestaurada = new Version();
+                    versionRestaurada.Version(contenidoVersionRestaurar,cantidadVersiones,fechaRestauracion);
                     versionesActuales.add(versionRestaurada);
 
                     this.documentos.get(i).setContenidoDoc(contenidoVersionRestaurar);
@@ -147,6 +147,29 @@ public class Paradigmadocs {
         }
     }
 
+    public void search(ArrayList<Version> versionesDoc, String frase, String nombreDoc, int idDoc){
+
+        boolean bandera = false;
+        for (int i=0;i< versionesDoc.size();i++){
+            if (versionesDoc.get(i).getContenido().contains(frase)){
+                bandera = true;
+                i= versionesDoc.size();
+            }
+        }
+
+        if (bandera){
+            System.out.println("Nombre del documento: " +
+                    nombreDoc + "\nID del documento: " + idDoc + "\n");
+            System.out.println("Versiones: ");
+            for (int i=0;i< versionesDoc.size();i++){
+                if (versionesDoc.get(i).getContenido().contains(frase)){
+                    System.out.println("Contenido: " + versionesDoc.get(i).getContenido() +
+                            "\n" + "ID de la version: " +
+                            versionesDoc.get(i).getiD() + "\n");
+                }
+            }
+        }
+    }
     @Override
     public String toString() {
         return "Paradigmadocs{" +

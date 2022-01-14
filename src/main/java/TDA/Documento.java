@@ -9,7 +9,7 @@ public class Documento {
     private String contenidoDoc;
     private int iD;
     private Date fechaCreacion;
-    private ArrayList<Versiones> versionesDoc;
+    private ArrayList<Version> versionesDoc;
 
 
     public Documento Documento(String nombreUser, String nombreDoc, String contenidoDoc, int iD, Date fechaCreacion) {
@@ -19,9 +19,9 @@ public class Documento {
         this.contenidoDoc = contenidoDoc;
         this.iD = iD;
         this.fechaCreacion = fechaCreacion;
-        ArrayList<Versiones> primeraVersion = new ArrayList<>();
-        Versiones primera = new Versiones();
-        primera.Versiones(contenidoDoc,1,fecha);
+        ArrayList<Version> primeraVersion = new ArrayList<>();
+        Version primera = new Version();
+        primera.Version(contenidoDoc,1,fecha);
         primeraVersion.add(primera);
         this.versionesDoc = primeraVersion;
 
@@ -36,7 +36,11 @@ public class Documento {
         return iD;
     }
 
-    public ArrayList<Versiones> getVersionesDoc() {
+    public String getNombreDoc() {
+        return nombreDoc;
+    }
+
+    public ArrayList<Version> getVersionesDoc() {
         return versionesDoc;
     }
 
@@ -48,7 +52,7 @@ public class Documento {
         this.contenidoDoc = contenidoDoc;
     }
 
-    public void setVersionesDoc(ArrayList<Versiones> versionesDoc) {
+    public void setVersionesDoc(ArrayList<Version> versionesDoc) {
         this.versionesDoc = versionesDoc;
     }
     @Override
