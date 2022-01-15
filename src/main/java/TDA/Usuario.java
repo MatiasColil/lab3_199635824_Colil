@@ -6,14 +6,14 @@ public class Usuario {
     //Atributos del TDA Usuario
     private String username;
     private String password;
-    private ArrayList<Accesos> accesosUser;
+    private ArrayList<Acceso> accesosUser;
 
 
 
     public Usuario CrearUsuario(String newusername, String newpassword) {
         this.username = newusername;
         this.password = newpassword;
-        ArrayList<Accesos> accesosUsuario = new ArrayList<>();
+        ArrayList<Acceso> accesosUsuario = new ArrayList<>();
         this.accesosUser = accesosUsuario;
         return this;
     }
@@ -26,11 +26,11 @@ public class Usuario {
         return password;
     }
 
-    public ArrayList<Accesos> getAccesosUser() {
+    public ArrayList<Acceso> getAccesosUser() {
         return accesosUser;
     }
 
-    public void setAccesosUser(ArrayList<Accesos> accesosUser) {
+    public void setAccesosUser(ArrayList<Acceso> accesosUser) {
         this.accesosUser = accesosUser;
     }
 

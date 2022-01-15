@@ -22,6 +22,10 @@ public class Version {
         return iD;
     }
 
+    public Date getFecha() {
+        return fecha;
+    }
+
     @Override
     public String toString() {
         return "Versiones{" +

@@ -1,10 +1,10 @@
 package TDA;
 
-public class Accesos {
+public class Acceso {
     private int iD;
     private String permiso;
 
-    public Accesos Accesos(int iD, String permiso) {
+    public Acceso Acceso(int iD, String permiso) {
         this.iD = iD;
         this.permiso = permiso;
         return this;

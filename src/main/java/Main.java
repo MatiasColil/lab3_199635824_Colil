@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         Date fechaActual = new Date();
-        Paradigmadocs plataforma = new Paradigmadocs();
+        Paradigmadoc plataforma = new Paradigmadoc();
         Menu menuParadigmadocs = new Menu();
 
         Usuario usuario1 = new Usuario();
@@ -45,7 +45,7 @@ public class Main {
 
 
         do {
-            System.out.println(plataforma);
+            //System.out.println(plataforma);
             if (plataforma.estadoUsuario()== false){
                 menuParadigmadocs.menuInicial(plataforma);
             }

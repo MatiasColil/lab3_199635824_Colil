@@ -6,14 +6,15 @@ import java.util.Date;
 
 public class Menu {
 
-    public void menuInicial(Paradigmadocs p){
+    public void menuInicial(Paradigmadoc p){
 
         try{
             System.out.println("\t Plataforma de documentos colaborativos\n\n" +
                     "Por favor inicie sesion, en caso de no tener cuenta, registrese\n");
             System.out.println("1.- Iniciar sesion");
             System.out.println("2.- Registrarse");
-            System.out.println("3.- Cerrar el programa");
+            System.out.println("3.- Visualizar los documentos");
+            System.out.println("4.- Cerrar el programa");
 
             Scanner s = new Scanner(System.in);
             int opcion = s.nextInt();
@@ -53,8 +54,13 @@ public class Menu {
                         System.out.println("Usuario ya registrado en la plataforma...");
                     }
                     break;
-
                 case 3:
+                    System.out.println("\tVisualizar documentos\n");
+                    String stringA=p.visualize(0);
+                    System.out.println(stringA);
+                    System.out.println("Visualizado correctamente...");
+                    break;
+                case 4:
                     System.out.println("Saliendo del programa...");
                     System.exit(0);
                     break;
@@ -67,7 +73,7 @@ public class Menu {
         }
     }
 
-    public void menuUsuario(Paradigmadocs p){
+    public void menuUsuario(Paradigmadoc p){
         try{
             System.out.println("\t Plataforma de documentos colaborativos\n\n");
             System.out.println("Registrado como: " + p.getUsuarioActivo().getUsername());
@@ -78,7 +84,7 @@ public class Menu {
             System.out.println("4.- Restaurar version de un documento");
             System.out.println("5.- Revocar accesso a un documento");
             System.out.println("6.- Buscar en los documentos");
-            System.out.println("7.- Visuzalizar documentos");
+            System.out.println("7.- Visualizar documentos");
             System.out.println("8.- Cerrar sesion");
             System.out.println("9.- Cerrar el programa");
             System.out.println("Ingrese su opcion: ");
@@ -185,7 +191,7 @@ public class Menu {
                     System.out.println("\t Agregar contenido a un documento\n");
                     boolean verificacionGeneral = true;
                     ArrayList<Documento> listaDocumentos = p.getDocumentos();
-                    ArrayList<Accesos> accesosUsuario = p.getUsuarioActivo().getAccesosUser();
+                    ArrayList<Acceso> accesosUsuario = p.getUsuarioActivo().getAccesosUser();
                     idDocumento=0;
 
                     while (verificacionGeneral){
@@ -322,7 +328,6 @@ public class Menu {
                     Scanner scf = new Scanner(System.in);
                     String frase = scf.nextLine();
 
-
                     for (int i=0;i<listaDocumentos.size();i++){
                         if (p.getUsuarioActivo().getUsername().equals(listaDocumentos.get(i).getUsuario())){
                             p.search(listaDocumentos.get(i).getVersionesDoc(),frase,listaDocumentos.get(i).getNombreDoc(),listaDocumentos.get(i).getiD());
@@ -337,6 +342,13 @@ public class Menu {
                         }
                     }
 
+                    System.out.println("Buscado correctamente...");
+                    break;
+                case 7:
+                    System.out.println("\tVisualizar plataforma\n");
+                    String stringA = p.visualize(1);
+                    System.out.println(stringA);
+                    System.out.println("\nVisualizacion correcta...");
                     break;
                 case 8:
                     System.out.println("Cerrando sesion...");

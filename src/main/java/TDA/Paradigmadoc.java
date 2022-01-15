@@ -3,7 +3,7 @@ package TDA;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Paradigmadocs {
+public class Paradigmadoc {
     //Paradigmadocs tiene a los usuarios, documentos mediante arreglos
 
     private ArrayList<Usuario> usuariosRegistrados = new ArrayList<>();
@@ -80,12 +80,12 @@ public class Paradigmadocs {
     }
 
     public void share(String user, int iDdocumento, String permiso){
-        Accesos nuevoAcceso = new Accesos();
-        nuevoAcceso.Accesos(iDdocumento,permiso);
+        Acceso nuevoAcceso = new Acceso();
+        nuevoAcceso.Acceso(iDdocumento,permiso);
 
         for (int i = 0; i< this.usuariosRegistrados.size();i++){
             if (this.usuariosRegistrados.get(i).getUsername().equals(user)){
-                ArrayList<Accesos> temp = this.usuariosRegistrados.get(i).getAccesosUser();
+                ArrayList<Acceso> temp = this.usuariosRegistrados.get(i).getAccesosUser();
                 temp.add(nuevoAcceso);
                 this.usuariosRegistrados.get(i).setAccesosUser(temp);
             }
@@ -139,7 +139,7 @@ public class Paradigmadocs {
         for (int i=0;i<this.usuariosRegistrados.size();i++){
             for (int j=0;j<this.usuariosRegistrados.get(i).getAccesosUser().size();j++){
                 if (this.usuariosRegistrados.get(i).getAccesosUser().get(j).getiD()==idDocumento){
-                    Accesos accesoBorrar = this.usuariosRegistrados.get(i).getAccesosUser().get(j);
+                    Acceso accesoBorrar = this.usuariosRegistrados.get(i).getAccesosUser().get(j);
 
                     this.usuariosRegistrados.get(i).getAccesosUser().remove(accesoBorrar);
                 }
@@ -169,6 +169,65 @@ public class Paradigmadocs {
                 }
             }
         }
+    }
+
+    public String visualize(int opcion){
+        String stringNuevo = new String();
+        if (opcion==1){//opcion usuario
+            stringNuevo = stringNuevo + "Nombre del usuario: " + getUsuarioActivo().getUsername() + "\n";
+            stringNuevo= stringNuevo + "Accesos dados: "+"\n";
+            for (int i=0;i<getUsuarioActivo().getAccesosUser().size();i++){
+                stringNuevo= stringNuevo + "ID del documento compartido: "+ getUsuarioActivo().getAccesosUser().get(i).getiD()+("\n");
+                stringNuevo= stringNuevo + "Permiso dado: "+ getUsuarioActivo().getAccesosUser().get(i).getPermiso() + "\n";
+            }
+            stringNuevo= stringNuevo + ("Documentos: \n");
+
+            for (int i=0;i<this.documentos.size();i++){
+                if (this.documentos.get(i).getUsuario().equals(getUsuarioActivo().getUsername())){
+                    stringNuevo= stringNuevo + "Nombre del documento: " + this.documentos.get(i).getNombreDoc() + "\n";
+                    stringNuevo= stringNuevo + "ID del documento: " + this.documentos.get(i).getiD() + "\n";
+                    stringNuevo= stringNuevo + "Contenido actual del documento: " + this.documentos.get(i).getContenidoDoc() + "\n";
+                    stringNuevo= stringNuevo + "Versiones: " + "\n";
+                    for (int j=0;j<this.documentos.get(i).getVersionesDoc().size();j++){
+                        stringNuevo= stringNuevo + "ID de la version: " + this.documentos.get(i).getVersionesDoc().get(j).getiD() + "\n";
+                        stringNuevo= stringNuevo + "Contenido de la version: " + this.documentos.get(i).getVersionesDoc().get(j).getContenido() + "\n";
+                        stringNuevo= stringNuevo + "Fecha de la version: " + this.documentos.get(i).getVersionesDoc().get(j).getFecha() + "\n";
+                    }
+                }
+            }
+
+            for (int i=0;i<this.documentos.size();i++) {
+                for (int j = 0; j < this.getUsuarioActivo().getAccesosUser().size(); j++) {
+                    if (this.documentos.get(i).getiD() == this.getUsuarioActivo().getAccesosUser().get(j).getiD()){
+                        stringNuevo= stringNuevo + "Nombre del documento: " + this.documentos.get(i).getNombreDoc() + "\n";
+                        stringNuevo= stringNuevo + "ID del documento: " + this.documentos.get(i).getiD() + "\n";
+                        stringNuevo= stringNuevo + "Contenido actual del documento: " + this.documentos.get(i).getContenidoDoc() + "\n";
+                        stringNuevo= stringNuevo + "Versiones: " + "\n";
+                        for (int k=0;k<this.documentos.get(j).getVersionesDoc().size();k++){
+                            stringNuevo= stringNuevo + "ID de la version: " + this.documentos.get(j).getVersionesDoc().get(k).getiD() + "\n";
+                            stringNuevo= stringNuevo + "Contenido de la version: " + this.documentos.get(j).getVersionesDoc().get(k).getContenido() + "\n";
+                            stringNuevo= stringNuevo + "Fecha de la version: " + this.documentos.get(j).getVersionesDoc().get(k).getFecha() + "\n";
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            stringNuevo= stringNuevo + "Documentos en la plataforma: " + "\n";
+            for (int i=0;i<documentos.size();i++){
+                stringNuevo= stringNuevo + "Nombre del documento: " + documentos.get(i).getNombreDoc() + "\n";
+                stringNuevo= stringNuevo + "ID del documento: " + documentos.get(i).getiD() + "\n";
+                stringNuevo= stringNuevo + "Contenido actual del documento: " + documentos.get(i).getContenidoDoc() + "\n";
+                stringNuevo= stringNuevo + "Versiones: " + "\n";
+                for (int j=0;j<documentos.get(i).getVersionesDoc().size();j++){
+                    stringNuevo= stringNuevo + "ID de la version: " + documentos.get(i).getVersionesDoc().get(j).getiD() + "\n";
+                    stringNuevo= stringNuevo + "Contenido de la version: " + documentos.get(i).getVersionesDoc().get(j).getContenido() + "\n";
+                    stringNuevo= stringNuevo + "Fecha de la version: " + documentos.get(i).getVersionesDoc().get(j).getFecha() + "\n";
+                }
+            }
+        }
+
+        return stringNuevo;
     }
     @Override
     public String toString() {
