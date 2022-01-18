@@ -84,9 +84,10 @@ public class Menu {
             System.out.println("4.- Restaurar version de un documento");
             System.out.println("5.- Revocar accesso a un documento");
             System.out.println("6.- Buscar en los documentos");
-            System.out.println("7.- Visualizar documentos");
-            System.out.println("8.- Cerrar sesion");
-            System.out.println("9.- Cerrar el programa");
+            System.out.println("7.- Visuzalizar documentos");
+            System.out.println("8.- Eliminar los ultimos N caracteres de un documento");
+            System.out.println("9.- Cerrar sesion");
+            System.out.println("10.- Cerrar el programa");
             System.out.println("Ingrese su opcion: ");
 
             Scanner so = new Scanner(System.in);
@@ -105,7 +106,7 @@ public class Menu {
                     String contenido = scContenido.nextLine();
 
                     p.create(p.getUsuarioActivo(),titulo,contenido,ahora);
-                    System.out.println("Documento creado exitosamente");
+                    System.out.println("Documento creado exitosamente...\n");
                     break;
 
                 case 2:
@@ -185,7 +186,7 @@ public class Menu {
 
                     }
 
-                    System.out.println("Permiso dado correctamente...");
+                    System.out.println("Permiso dado correctamente...\n");
                     break;
                 case 3:
                     System.out.println("\t Agregar contenido a un documento\n");
@@ -233,7 +234,7 @@ public class Menu {
                         }
                     }
 
-                    System.out.println("Contenido agregado correctamente...");
+                    System.out.println("Contenido agregado correctamente...\n");
                     break;
                 case 4:
                     System.out.println("\tRestaurar version de un documento\n");
@@ -287,11 +288,10 @@ public class Menu {
                     }
 
                     p.rollback(idDocumento,idVersion);
-                    System.out.println("Version restaurada correctamente...");
+                    System.out.println("Version restaurada correctamente...\n");
                     break;
                 case 5:
                     System.out.println("\tRevocar permisos a un documento\n");
-                    ArrayList<Usuario> listaUsuarios= p.getUsuariosRegistrados();
                     listaDocumentos = p.getDocumentos();
                     verificacionIdDocumento = true;
                     idDocumento =0;
@@ -318,7 +318,7 @@ public class Menu {
                     }
 
                     p.revokeAccess(idDocumento);
-                    System.out.println("Se ha o han revocado los accesos correctamente...");
+                    System.out.println("Se ha o han revocado los accesos correctamente...\n");
                     break;
                 case 6:
                     System.out.println("\tBuscar en los documentos\n");
@@ -327,6 +327,7 @@ public class Menu {
                     accesosUsuario = p.getUsuarioActivo().getAccesosUser();
                     Scanner scf = new Scanner(System.in);
                     String frase = scf.nextLine();
+
 
                     for (int i=0;i<listaDocumentos.size();i++){
                         if (p.getUsuarioActivo().getUsername().equals(listaDocumentos.get(i).getUsuario())){
@@ -342,19 +343,65 @@ public class Menu {
                         }
                     }
 
-                    System.out.println("Buscado correctamente...");
                     break;
                 case 7:
                     System.out.println("\tVisualizar plataforma\n");
                     String stringA = p.visualize(1);
                     System.out.println(stringA);
-                    System.out.println("\nVisualizacion correcta...");
+                    System.out.println("\nVisualizacion correcta...\n");
                     break;
                 case 8:
+                    System.out.println("\tEliminar los ultimos N caracteres de un documento\n");
+                    verificacionGeneral = true;
+                    listaDocumentos = p.getDocumentos();
+                    accesosUsuario = p.getUsuarioActivo().getAccesosUser();
+
+                    while (verificacionGeneral){
+                        System.out.println("Recuerde que los ID de los documentos son unicos e incrementales partiendo desde el 1.\n");
+                        System.out.println("Ingrese el ID del documento que desea modificar:");
+                        Scanner sciD = new Scanner(System.in);
+                        idDocumento = sciD.nextInt();
+
+                        for (int i =0; i<listaDocumentos.size();i++){
+                            if (listaDocumentos.get(i).getUsuario().equals(p.getUsuarioActivo().getUsername()) && listaDocumentos.get(i).getiD()==idDocumento){
+                                System.out.println("Ingrese la cantidad de caracteres a eliminar:");
+                                Scanner scca = new Scanner(System.in);
+                                int contenidoEliminar = scca.nextInt();
+                                p.delete(idDocumento,contenidoEliminar);
+                                verificacionGeneral = false;
+                                i= listaDocumentos.size();
+                            }
+                        }
+
+                        for (int i= 0;i<accesosUsuario.size();i++){
+                            if (accesosUsuario.get(i).getiD()==idDocumento && accesosUsuario.get(i).getPermiso().equals("write")){
+                                System.out.println("Ingrese la cantidad de caracteres a eliminar:");
+                                Scanner scca = new Scanner(System.in);
+                                int contenidoEliminar = scca.nextInt();
+                                p.delete(idDocumento,contenidoEliminar);
+                                verificacionGeneral = false;
+                                i= listaDocumentos.size();
+                            }
+                        }
+
+                        if (verificacionGeneral){
+                            System.out.println("Ingrese un ID de documento que le pertenezca o que le hayan compartido con permiso de edicion (write), en caso de no tener " +
+                                    " ningun documento propio o compartido \n" +
+                                    "escriba 0 y presione ENTER para salir de esta opcion\n");
+                        }
+                        if (idDocumento == 0){
+                            System.out.println("Saliendo de la opcion agregar contenido...");
+                            break;
+                        }
+                    }
+
+                    System.out.println("Contenido eliminado correctamente...\n");
+                    break;
+                case 9:
                     System.out.println("Cerrando sesion...");
                     p.logout();
                     break;
-                case 9:
+                case 10:
                     System.out.println("Saliendo del programa...");
                     System.exit(0);
                     break;
@@ -366,6 +413,4 @@ public class Menu {
         }
 
     }
-
-
 }

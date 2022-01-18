@@ -203,10 +203,10 @@ public class Paradigmadoc {
                         stringNuevo= stringNuevo + "ID del documento: " + this.documentos.get(i).getiD() + "\n";
                         stringNuevo= stringNuevo + "Contenido actual del documento: " + this.documentos.get(i).getContenidoDoc() + "\n";
                         stringNuevo= stringNuevo + "Versiones: " + "\n";
-                        for (int k=0;k<this.documentos.get(j).getVersionesDoc().size();k++){
-                            stringNuevo= stringNuevo + "ID de la version: " + this.documentos.get(j).getVersionesDoc().get(k).getiD() + "\n";
-                            stringNuevo= stringNuevo + "Contenido de la version: " + this.documentos.get(j).getVersionesDoc().get(k).getContenido() + "\n";
-                            stringNuevo= stringNuevo + "Fecha de la version: " + this.documentos.get(j).getVersionesDoc().get(k).getFecha() + "\n";
+                        for (int k=0;k<this.documentos.get(i).getVersionesDoc().size();k++){
+                            stringNuevo= stringNuevo + "ID de la version: " + this.documentos.get(i).getVersionesDoc().get(k).getiD() + "\n";
+                            stringNuevo= stringNuevo + "Contenido de la version: " + this.documentos.get(i).getVersionesDoc().get(k).getContenido() + "\n";
+                            stringNuevo= stringNuevo + "Fecha de la version: " + this.documentos.get(i).getVersionesDoc().get(k).getFecha() + "\n";
                         }
                     }
                 }
@@ -228,6 +228,32 @@ public class Paradigmadoc {
         }
 
         return stringNuevo;
+    }
+
+    public void delete(int idDocumento, int cantidadCaracteres){
+        for (int i=0;i<this.documentos.size();i++){
+            if (this.documentos.get(i).getiD()==idDocumento){
+
+                Date fechaActual = new Date();
+                ArrayList<Version> versionesActuales=this.documentos.get(i).getVersionesDoc();
+                String contenidoActual=this.documentos.get(i).getContenidoDoc();
+                String contenidoActulizado;
+                if (contenidoActual.length()>cantidadCaracteres){
+                    contenidoActulizado=contenidoActual.substring(0,contenidoActual.length()- cantidadCaracteres);
+                }
+                else{
+                    contenidoActulizado="";
+                }
+                int cantidadVersiones = versionesActuales.size() + 1;
+                Version nuevaVersion = new Version();
+                nuevaVersion.Version(contenidoActulizado,cantidadVersiones, fechaActual);
+                versionesActuales.add(nuevaVersion);
+
+                this.documentos.get(i).setContenidoDoc(contenidoActulizado);
+                this.documentos.get(i).setVersionesDoc(versionesActuales);
+
+            }
+        }
     }
     @Override
     public String toString() {
