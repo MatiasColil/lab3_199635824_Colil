@@ -3,8 +3,14 @@ package TDA;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Una clase que me representa una plataforma de documentos colaborativos
+ * la cual tiene una lista de usuarios registrados, una lista de documentos,
+ * un usuario activo, cantidad de documentos de la plataforma
+ * @version 1.0, 20/01/22
+ * @author Matias Colil
+ */
 public class Paradigmadoc {
-    //Paradigmadocs tiene a los usuarios, documentos mediante arreglos
 
     private ArrayList<Usuario> usuariosRegistrados = new ArrayList<>();
     private ArrayList<Documento> documentos = new ArrayList<>();
@@ -12,29 +18,52 @@ public class Paradigmadoc {
     private Usuario usuarioActivo;
     private boolean boolUsuario = false;
 
-    //Setter Paradigmadoc
+    /**
+     * Metodo que modifica el usuario activo de la plataforma
+     * @param usuarioActivo
+     */
     public void setUsuarioActivo(Usuario usuarioActivo) {
         this.usuarioActivo = usuarioActivo;
         this.boolUsuario = true;
     }
 
-    //Getter Paradigmadoc
+    /**
+     * Metodo que retorna la lista de usuarios registrados
+     * @return usuariosRegistrados
+     */
     public ArrayList<Usuario> getUsuariosRegistrados() {
         return usuariosRegistrados;
     }
 
+    /**
+     * Metodo que retorna la lista de documentos
+     * @return documentos
+     */
     public ArrayList<Documento> getDocumentos() {
         return documentos;
     }
 
+    /**
+     * Metodo que retorna el usuario activo de la plataforma
+     * @return usuarioActivo
+     */
     public Usuario getUsuarioActivo() {
         return usuarioActivo;
     }
 
+    /**
+     * Metodo que me cambia el valor de verdad del estado usuario
+     * @return boolUsuario
+     */
     public boolean estadoUsuario(){
         return boolUsuario;
     }
 
+    /**
+     * Metodo que me verifica si un usuario ya se encuentra registrado
+     * @param user nombre del usuario que se compara con los ya registrados de la lista de usuarios
+     * @return valor booleano
+     */
     public boolean estaUsuario (Usuario user){
         for(int i=0; i< this.usuariosRegistrados.size(); i++){
             if( this.usuariosRegistrados.get(i).getUsername().equals(user.getUsername())){
@@ -44,6 +73,12 @@ public class Paradigmadoc {
         return false;
     }
 
+    /**
+     * Metodo que registra un nuevo usuario
+     * @param nombre nombre del usuario
+     * @param contrasenia contraseña del usuario
+     * @return valor booleano
+     */
     public boolean registrarUsuario(String nombre, String contrasenia){
         Usuario nuevoUser = new Usuario();
         nuevoUser.CrearUsuario(nombre, contrasenia);
@@ -57,6 +92,12 @@ public class Paradigmadoc {
         }
     }
 
+    /**
+     * Metodo que logea un usuario en la plataforma, tiene que estar registrado el usuario
+     * @param nombre nombre del usuario
+     * @param contrasenia contraseña del usuario
+     * @return valor booleano
+     */
     public boolean login (String nombre, String contrasenia) {
         for (int i = 0; i < this.usuariosRegistrados.size(); i++) {
             if (this.usuariosRegistrados.get(i).getUsername().equals(nombre) && this.usuariosRegistrados.get(i).getPassword().equals(contrasenia)) {
@@ -67,11 +108,21 @@ public class Paradigmadoc {
         return false;
     }
 
+    /**
+     * Metodo que me deslogea un usuario activo
+     */
     public void logout(){
         this.usuarioActivo = null;
         this.boolUsuario = false;
     }
 
+    /**
+     * Metodo que crea una instancia documento y lo guarda en la lista de documentos
+     * @param user nombre del usuario que crea el documento
+     * @param nombreDoc nombre del documento
+     * @param contenidoDoc contenido del documento
+     * @param fecha fecha de creacion del documento
+     */
     public void create(Usuario user, String nombreDoc, String contenidoDoc, Date fecha){
         Documento newDoc = new Documento();
         this.cantidadDocumentos=this.cantidadDocumentos+1;
@@ -79,6 +130,12 @@ public class Paradigmadoc {
         this.documentos.add(newDoc);
     }
 
+    /**
+     * Metodo que comparte un documento con un usuario
+     * @param user nombre del usuario que se le comparte el documento
+     * @param iDdocumento ID del documento
+     * @param permiso tipo de permiso
+     */
     public void share(String user, int iDdocumento, String permiso){
         Acceso nuevoAcceso = new Acceso();
         nuevoAcceso.Acceso(iDdocumento,permiso);
@@ -92,6 +149,11 @@ public class Paradigmadoc {
         }
     }
 
+    /**
+     * Metodo que agrega nuevo contenido a un documento
+     * @param iDdocumento ID del documento
+     * @param contenidoAgregar contenido a agregar al documento
+     */
     public void add(int iDdocumento, String contenidoAgregar){
 
         for (int i=0;i<this.documentos.size();i++){
@@ -113,6 +175,11 @@ public class Paradigmadoc {
         }
     }
 
+    /**
+     * Metodo que devuelve una version antigua del documento y la deja como version activa
+     * @param idDocumento ID del documento
+     * @param idVersion ID de la version del documento
+     */
     public void rollback(int idDocumento, int idVersion){
         for (int i=0;i<this.documentos.size();i++){
             for (int j = 0;j<this.documentos.get(i).getVersionesDoc().size();j++){
@@ -135,6 +202,10 @@ public class Paradigmadoc {
         }
     }
 
+    /**
+     * Metodo que revoca los accesos a un documento que un usuario dio a otros usuarios
+     * @param idDocumento ID del documento
+     */
     public void revokeAccess(int idDocumento){
         for (int i=0;i<this.usuariosRegistrados.size();i++){
             for (int j=0;j<this.usuariosRegistrados.get(i).getAccesosUser().size();j++){
@@ -147,6 +218,14 @@ public class Paradigmadoc {
         }
     }
 
+    /**
+     * Metodo que busca en todos los documentos que un usuario tiene acceso una palabra o frase y retorna una
+     * lista con los documentos que contiene dicha frase o palabra
+     * @param versionesDoc lista de versiones de un documento
+     * @param frase frase o palabra a buscar
+     * @param nombreDoc nombre documento
+     * @param idDoc ID del documento
+     */
     public void search(ArrayList<Version> versionesDoc, String frase, String nombreDoc, int idDoc){
 
         boolean bandera = false;
@@ -171,6 +250,11 @@ public class Paradigmadoc {
         }
     }
 
+    /**
+     * Metodo que retorna un string con lo que tiene la plataforma
+     * @param opcion
+     * @return string
+     */
     public String visualize(int opcion){
         String stringNuevo = new String();
         if (opcion==1){//opcion usuario
@@ -230,6 +314,11 @@ public class Paradigmadoc {
         return stringNuevo;
     }
 
+    /**
+     * Metodo que elimina los ultimos N caracteres de un documento
+     * @param idDocumento ID del documento
+     * @param cantidadCaracteres cantidad de caracteres
+     */
     public void delete(int idDocumento, int cantidadCaracteres){
         for (int i=0;i<this.documentos.size();i++){
             if (this.documentos.get(i).getiD()==idDocumento){
@@ -255,6 +344,11 @@ public class Paradigmadoc {
             }
         }
     }
+
+    /**
+     * Metodo que retorna un string con todos los datos de paradigmadocs
+     * @return string
+     */
     @Override
     public String toString() {
         return "Paradigmadocs{" +

@@ -2,6 +2,9 @@ import TDA.*;
 
 import java.util.Date;
 
+/**
+ * Clase MAIN en la que se ejecuta
+ */
 public class Main {
 
     public static void main(String[] args) {
@@ -33,19 +36,14 @@ public class Main {
         plataforma.create(usuario4,"primer doc user 4","contenido user 4",fechaActual);
         plataforma.create(usuario5,"primer doc user 5","contenido user 5",fechaActual);
 
-        /*
-        plataforma.create2(usuario1,"primer doc user 1","contenido user 1",fechaActual);
-        plataforma.create2(usuario2,"primer doc user 2","contenido user 2",fechaActual);
-        plataforma.create2(usuario3,"primer doc user 3","contenido user 3",fechaActual);
-        plataforma.create2(usuario4,"primer doc user 4","contenido user 4",fechaActual);
-        plataforma.create2(usuario5,"primer doc user 5","contenido user 5",fechaActual);
-        System.out.println(plataforma);
-
-         */
+        plataforma.create(usuario1,"segundo doc user 1","segundo contenido user 1",fechaActual);
+        plataforma.create(usuario2,"segundo doc user 2","segundo contenido user 2",fechaActual);
+        plataforma.create(usuario3,"segundo doc user 3","segundo contenido user 3",fechaActual);
+        plataforma.create(usuario4,"segundo doc user 4","segundo contenido user 4",fechaActual);
+        plataforma.create(usuario5,"segundo doc user 5","segundo contenido user 5",fechaActual);
 
 
         do {
-            //System.out.println(plataforma);
             if (plataforma.estadoUsuario()== false){
                 menuParadigmadocs.menuInicial(plataforma);
             }

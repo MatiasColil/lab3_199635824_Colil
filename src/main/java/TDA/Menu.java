@@ -4,8 +4,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Date;
 
+/**
+ * Una clase que me representa el menu
+ * @version 1.0, 20/01/22
+ * @author Matias Colil
+ */
 public class Menu {
 
+    /**
+     * Metodo que redirige al menu inicial
+     * @param p recibe como parametro la plataforma
+     */
     public void menuInicial(Paradigmadoc p){
 
         try{
@@ -73,6 +82,10 @@ public class Menu {
         }
     }
 
+    /**
+     * Metodo que redirige al menu de usuario
+     * @param p recibe como parametro la plataforma
+     */
     public void menuUsuario(Paradigmadoc p){
         try{
             System.out.println("\t Plataforma de documentos colaborativos\n\n");
