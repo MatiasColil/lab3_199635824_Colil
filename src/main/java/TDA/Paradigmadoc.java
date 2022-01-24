@@ -74,7 +74,7 @@ public class Paradigmadoc {
     }
 
     /**
-     * Metodo que registra un nuevo usuario
+     * Metodo que registra un nuevo usuario. requerimiento funcional authentication
      * @param nombre nombre del usuario
      * @param contrasenia contraseña del usuario
      * @return valor booleano
@@ -93,7 +93,7 @@ public class Paradigmadoc {
     }
 
     /**
-     * Metodo que logea un usuario en la plataforma, tiene que estar registrado el usuario
+     * Metodo que logea un usuario en la plataforma, tiene que estar registrado el usuario, requerimiento funcional authentication
      * @param nombre nombre del usuario
      * @param contrasenia contraseña del usuario
      * @return valor booleano
@@ -109,7 +109,7 @@ public class Paradigmadoc {
     }
 
     /**
-     * Metodo que me deslogea un usuario activo
+     * Metodo que me deslogea un usuario activo, requerimiento funcional authentication
      */
     public void logout(){
         this.usuarioActivo = null;
@@ -117,7 +117,7 @@ public class Paradigmadoc {
     }
 
     /**
-     * Metodo que crea una instancia documento y lo guarda en la lista de documentos
+     * Metodo que crea una instancia documento y lo guarda en la lista de documentos, requerimiento funcional create
      * @param user nombre del usuario que crea el documento
      * @param nombreDoc nombre del documento
      * @param contenidoDoc contenido del documento
@@ -131,7 +131,7 @@ public class Paradigmadoc {
     }
 
     /**
-     * Metodo que comparte un documento con un usuario
+     * Metodo que comparte un documento con un usuario, requerimiento funcional share
      * @param user nombre del usuario que se le comparte el documento
      * @param iDdocumento ID del documento
      * @param permiso tipo de permiso
@@ -150,7 +150,7 @@ public class Paradigmadoc {
     }
 
     /**
-     * Metodo que agrega nuevo contenido a un documento
+     * Metodo que agrega nuevo contenido a un documento, requerimiento funcional add
      * @param iDdocumento ID del documento
      * @param contenidoAgregar contenido a agregar al documento
      */
@@ -176,7 +176,7 @@ public class Paradigmadoc {
     }
 
     /**
-     * Metodo que devuelve una version antigua del documento y la deja como version activa
+     * Metodo que devuelve una version antigua del documento y la deja como version activa, requerimiento funcional rollback
      * @param idDocumento ID del documento
      * @param idVersion ID de la version del documento
      */
@@ -203,7 +203,7 @@ public class Paradigmadoc {
     }
 
     /**
-     * Metodo que revoca los accesos a un documento que un usuario dio a otros usuarios
+     * Metodo que revoca los accesos a un documento que un usuario dio a otros , requerimiento funcional revokeAccess
      * @param idDocumento ID del documento
      */
     public void revokeAccess(int idDocumento){
@@ -219,7 +219,7 @@ public class Paradigmadoc {
     }
 
     /**
-     * Metodo que busca en todos los documentos que un usuario tiene acceso una palabra o frase y retorna una
+     * Metodo que busca en todos los documentos que un usuario tiene acceso una palabra o frase y retorna una, requerimiento funcional search
      * lista con los documentos que contiene dicha frase o palabra
      * @param versionesDoc lista de versiones de un documento
      * @param frase frase o palabra a buscar
@@ -251,7 +251,7 @@ public class Paradigmadoc {
     }
 
     /**
-     * Metodo que retorna un string con lo que tiene la plataforma
+     * Metodo que retorna un string con lo que tiene la plataforma, requerimiento funcional visualize
      * @param opcion
      * @return string
      */
@@ -315,7 +315,7 @@ public class Paradigmadoc {
     }
 
     /**
-     * Metodo que elimina los ultimos N caracteres de un documento
+     * Metodo que elimina los ultimos N caracteres de un documento, requerimiento funcional extra delete
      * @param idDocumento ID del documento
      * @param cantidadCaracteres cantidad de caracteres
      */

@@ -30,6 +30,7 @@ public class Menu {
 
             switch (opcion){
                 case 1:
+                    // requerimiento funcional authentication, opcion iniciar sesion
                     System.out.println("\t Iniciando sesion\n");
                     System.out.println("Ingrese nombre de usuario: ");
                     Scanner sn = new Scanner(System.in);
@@ -40,13 +41,14 @@ public class Menu {
                     String credencialContrasenia = sn.nextLine();
 
                     if (!p.login(credencialNombre,credencialContrasenia)){
-                        System.out.println("Nombre o contrañsea incorrecto, ingrese datos correctos.");
+                        System.out.println("Nombre o contrasenia incorrecto, ingrese datos correctos.");
                     }
                     else{
                         System.out.println("Inicio de sesion exitoso");
                     }
                     break;
                 case 2:
+                    // requerimiento funcional authentication, opcion registrarse
                     System.out.println("\t Registrando a un usuario\n");
                     System.out.println("Ingrese el nombre del usuario a registrar:");
                     Scanner scr = new Scanner(System.in);
@@ -56,6 +58,7 @@ public class Menu {
                     Scanner scp = new Scanner(System.in);
                     String nuevaPass = scp.nextLine();
 
+                    //cuando se registra el usuario se logea en la plataforma
                     if (p.registrarUsuario(nuevoUser,nuevaPass)){
                         p.login(nuevoUser,nuevaPass);
                     }
@@ -64,6 +67,7 @@ public class Menu {
                     }
                     break;
                 case 3:
+                    // requerimiento funcional visualize, opcion visualizar documentos
                     System.out.println("\tVisualizar documentos\n");
                     String stringA=p.visualize(0);
                     System.out.println(stringA);
@@ -108,8 +112,8 @@ public class Menu {
 
             switch (opcion){
                 case 1:
+                    // requerimiento funcional create, opcion crear documento
                     Date ahora = new Date();
-
                     System.out.println("Ingrese el nombre del documento:");
                     Scanner sctitulo = new Scanner(System.in);
                     String titulo = sctitulo.nextLine();
@@ -123,6 +127,7 @@ public class Menu {
                     break;
 
                 case 2:
+                    // requerimiento funcional share, opcion compartir documento
                     boolean valor = true;
                     boolean valor2 = true;
                     boolean valor3 = true;
@@ -202,6 +207,7 @@ public class Menu {
                     System.out.println("Permiso dado correctamente...\n");
                     break;
                 case 3:
+                    // requerimiento funcional add, opcion añadir mas texto a un documento
                     System.out.println("\t Agregar contenido a un documento\n");
                     boolean verificacionGeneral = true;
                     ArrayList<Documento> listaDocumentos = p.getDocumentos();
@@ -250,6 +256,7 @@ public class Menu {
                     System.out.println("Contenido agregado correctamente...\n");
                     break;
                 case 4:
+                    // requerimiento funcional rollback, opcion restaurar una version
                     System.out.println("\tRestaurar version de un documento\n");
                     listaDocumentos = p.getDocumentos();
                     idDocumento = 0;
@@ -304,6 +311,7 @@ public class Menu {
                     System.out.println("Version restaurada correctamente...\n");
                     break;
                 case 5:
+                    // requerimiento funcional revokeAccess, opcion revocar un acceso
                     System.out.println("\tRevocar permisos a un documento\n");
                     listaDocumentos = p.getDocumentos();
                     verificacionIdDocumento = true;
@@ -334,6 +342,7 @@ public class Menu {
                     System.out.println("Se ha o han revocado los accesos correctamente...\n");
                     break;
                 case 6:
+                    // requerimiento funcional search, opcion buscar en los documentos
                     System.out.println("\tBuscar en los documentos\n");
                     System.out.println("Ingrese la palabra o frase que desea buscar:");
                     listaDocumentos = p.getDocumentos();
@@ -358,12 +367,14 @@ public class Menu {
 
                     break;
                 case 7:
+                    // requerimiento funcional visualize, opcion visulizar documentos
                     System.out.println("\tVisualizar plataforma\n");
                     String stringA = p.visualize(1);
                     System.out.println(stringA);
                     System.out.println("\nVisualizacion correcta...\n");
                     break;
                 case 8:
+                    // requerimiento extra opcional delete, opcion eliminar los ultimos N caracteres
                     System.out.println("\tEliminar los ultimos N caracteres de un documento\n");
                     verificacionGeneral = true;
                     listaDocumentos = p.getDocumentos();
@@ -411,6 +422,7 @@ public class Menu {
                     System.out.println("Contenido eliminado correctamente...\n");
                     break;
                 case 9:
+                    // requerimiento funcional authentication, opcion cerrar sesion
                     System.out.println("Cerrando sesion...");
                     p.logout();
                     break;
